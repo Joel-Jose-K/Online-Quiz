@@ -16,17 +16,8 @@ class Quiz extends Model
 
     protected $fillable = ['quiz_type_id', 'title', 'description', 'active_from', 'active_to', 'status', 'is_publish', 'is_evaluate', 'created_by'];
 
-    public function quiztype(){
+    public function quiztype()
+    {
         return $this->belongsTo(QuizType::class,'quiz_type_id');
     }
-
-    // public function getQuizTypeNameAttribute()
-    // {
-    //     return $this->quiztype->name;
-    // }
-
-    // public function setActiveFromAttribute($value)
-    // {
-    //     $this->attributes['active_from'] = Carbon::createFromFormat('Y-m-d H:m', $value)->format('Y-m-d H:m');
-    // }
 }

@@ -21,15 +21,15 @@
                 @csrf
                 <div class="row">
                     <div class="form-group col-md-6 offset-md-3">
-                        <label for="Question">Question</label>
-                        <textarea name="Question[1][question]" class="form-control validate_check" cols="10" rows="10"></textarea>
+                        <label for="question">Question</label>
+                        <textarea name="question[1][question]" class="form-control validate_check" cols="10" rows="10"></textarea>
                     </div>
                     <div class="form-group col-md-6 offset-md-3">
                         <label for="Type">Type</label>
-                        <select name="Question[1][type]" id="Type" class="form-control validate_check">
+                        <select name="question[1][type]" id="Type" class="form-control validate_check">
                             <option value="">-- Select Quiz Type --</option>
-                            @foreach ($quiz_types as $quiz_type)
-                                <option value="{{ $quiz_type->id }}">{{ $quiz_type->name }}</option>
+                            @foreach ($quizs as $quiz)
+                                <option value="{{ $quiz->id }}">{{ $quiz->title }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -38,13 +38,13 @@
                         <div class="options-container">
                             <div class="row">
                                 <div class="col-xs-8">
-                                    <input type="text" class="form-control validate_check" name="Question[1][option][1][option_text]">
+                                    <input type="text" class="form-control validate_check" name="question[1][option][1][option_text]">
                                 </div>
                                 <div class="col-xs-1 add_option_btn" data-question-index="1">
                                     <span class="glyphicon glyphicon-plus"></span>
                                 </div>
                                 <div class="col-xs-2">
-                                    <input name="Question[1][option][1][is_answer]" type="checkbox">
+                                    <input name="question[1][option][1][is_answer]" type="checkbox">
                                 </div>
                             </div>
                         </div>
@@ -121,19 +121,6 @@
             });
 
 
-            // $.validator.addClassRules({
-            //     validate_check: {
-            //         required: true
-            //     }
-            // });
-
-            // $.validator.addMethod("cRequired", $.validator.methods.required, "This field is required");
-
-
-            // $( "form" ).rules( "form-control", {
-            //     required: true,
-            // });
-
             let container = $('.options-container');
             
             $(document).on('click', '.add_option_btn', function () {
@@ -146,13 +133,13 @@
 
                     <div class="row">
                     <div class="col-xs-8">
-                        <input type="text" class="form-control validate_check" name="Question[${questionindex}][option][${newOptionIndex}][option_text]">
+                        <input type="text" class="form-control validate_check" name="question[${questionindex}][option][${newOptionIndex}][option_text]">
                     </div>
                     <div class="col-xs-1 ">
                         <span class="glyphicon glyphicon-trash delete-option">delete</span>
                     </div>
                     <div class="col-xs-2">
-                        <input name="Question[${questionindex}][option][${newOptionIndex}][is_answer]" type="checkbox">
+                        <input name="question[${questionindex}][option][${newOptionIndex}][is_answer]" type="checkbox">
                     </div>
                     </div>
                     
@@ -182,14 +169,14 @@
                
                     <div class="form-group col-md-6 offset-md-3">
                         <label for="Question">Question</label>
-                        <textarea name="Question[${newIndex}][question]" class="form-control validate_check" cols="10" rows="10"></textarea>
+                        <textarea name="question[${newIndex}][question]" class="form-control validate_check" cols="10" rows="10"></textarea>
                     </div>
                     <div class="form-group col-md-6 offset-md-3">
                         <label for="Type">Type</label>
-                        <select name="Question[${newIndex}][type]" id="Type" class="form-control validate_check">
-                            <option value="">-- Select Quiz Type --</option>
-                            @foreach ($quiz_types as $quiz_type)
-                                <option value="{{ $quiz_type->id }}">{{ $quiz_type->name }}</option>
+                        <select name="question[${newIndex}][type]" id="Type" class="form-control validate_check">
+                            <option value="">-- Select Quiz --</option>
+                            @foreach ($quizs as $quiz)
+                                <option value="{{ $quiz->id }}">{{ $quiz->title }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -198,13 +185,13 @@
                         <div class="options-container">
                             <div class="row">
                                 <div class="col-xs-8">
-                                    <input type="text" class="form-control validate_check" name="Question[${newIndex}][option][${newOptionIndex}][option_text]">
+                                    <input type="text" class="form-control validate_check" name="question[${newIndex}][option][${newOptionIndex}][option_text]">
                                 </div>
                                 <div class="col-xs-1 add_option_btn" id="" data-question-index="${newIndex}">
                                     <span class="glyphicon glyphicon-plus"></span>
                                 </div>
                                 <div class="col-xs-2">
-                                    <input name="Question[${questionindex}][option][${newOptionIndex}][is_answer]" type="checkbox">
+                                    <input name="question[${questionindex}][option][${newOptionIndex}][is_answer]" type="checkbox">
                                 </div>
                             </div>
                         </div>
