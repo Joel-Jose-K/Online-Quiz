@@ -17,6 +17,9 @@
             <p class="alert alert-success">{{ session('msg') }}</p>
         @endif
 
+            <ul id="mcq_errList"></ul>
+            <div id="success_message"></div>
+
             <form action="{{ route('mcq.submit') }}" method="POST" id="createMcq" class="add_another_question">
                 @csrf
                 <div class="row">
@@ -27,7 +30,7 @@
                     <div class="form-group col-md-6 offset-md-3">
                         <label for="Type">Type</label>
                         <select name="question[1][type]" id="Type" class="form-control validate_check">
-                            <option value="">-- Select Quiz Type --</option>
+                            <option value="">-- Select Quiz --</option>
                             @foreach ($quizs as $quiz)
                                 <option value="{{ $quiz->id }}">{{ $quiz->title }}</option>
                             @endforeach
@@ -44,7 +47,7 @@
                                     <span class="glyphicon glyphicon-plus"></span>
                                 </div>
                                 <div class="col-xs-2">
-                                    <input name="question[1][option][1][is_answer]" type="checkbox">
+                                    <input class="validate_check" name="question[1][option][1][is_answer]" type="checkbox">
                                 </div>
                             </div>
                         </div>
@@ -70,7 +73,6 @@
             let addForm = $("form");
             let QuestionIndex = 1;
             let optionIndex = 1;
-            // newly added
             let answerIndex = 1;
 
             $(document).on('click', '#add', function (e) {
@@ -106,9 +108,14 @@
                         }
                         ,success: function (response) {
                             if(response.status == 400){
-
+                                $('#mcq_errList').html("");
+                                $('#mcq_errList').addClass("alert alert-warning");
+                                $.each(response.errors, function (key, err_values) { 
+                                    $('#mcq_errList').append('<li>'+err_values+'</li>');
+                                });
                             } else {
-
+                                $('#success_message').addClass("alert alert-success");
+                                $('#success_message').text(response.message);
                             }
                         }
                     });
@@ -191,7 +198,7 @@
                                     <span class="glyphicon glyphicon-plus"></span>
                                 </div>
                                 <div class="col-xs-2">
-                                    <input name="question[${questionindex}][option][${newOptionIndex}][is_answer]" type="checkbox">
+                                    <input class="validate_check" name="question[${questionindex}][option][${newOptionIndex}][is_answer]" type="checkbox">
                                 </div>
                             </div>
                         </div>
@@ -210,10 +217,7 @@
                     $(this).closest('.add_another_question').remove();
                 });
             });
-
-            // $(document).on('click', '#add', function (e) {
-            //     e.preventDefault();
-            // });            
+           
 
         });
 

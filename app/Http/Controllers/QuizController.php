@@ -29,7 +29,6 @@ class QuizController extends Controller
 
     public function submitQuiz(Request $request)
     {
-        // $request->validate([
         $validator = Validator::make($request->all(), [
             'quiz_type_id' => 'required',
             'title'        => 'required|max:250',
