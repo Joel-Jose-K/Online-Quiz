@@ -158,6 +158,8 @@
                     <div class="card-header">
                         <h4>Quiz Data
                             <a href="#" data-toggle="modal" data-target="#addQuizModal" class="btn btn-primary float-end">Add Quiz</a>
+                            <a href="{{ route('mcq.view') }}" class="btn btn-primary">Create MCQ</a>
+                            {{-- <a href="{{ route('contest.view') }}" class="btn btn-primary">List View Details</a> --}}
                         </h4>
                     </div>
                         <div class="card-body">
@@ -165,7 +167,7 @@
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Quiz Type Id</th>
+                                        <th>Quiz Type</th>
                                         <th>Quiz Title</th>
                                         <th>Quiz Description</th>
                                         <th>Active from</th>
@@ -225,18 +227,20 @@
                         $('tbody').html("");
                         $.each(response.quizdata, function (key, item) { 
                              $('tbody').append(
-                                '<tr>\
-                                    <td>'+item.id+'</td>\
-                                    <td>'+item.quiztype.name+'</td>\
-                                    <td>'+item.title+'</td>\
-                                    <td>'+item.description+'</td>\
-                                    <td>'+item.active_from+'</td>\
-                                    <td>'+item.active_to+'</td>\
+                                 `
+                                <tr>\
+                                    <td>${item.id}</td>\
+                                    <td>${item.quiztype.name}</td>\
+                                    <td>${item.title}</td>\
+                                    <td>${item.description}</td>\
+                                    <td>${item.active_from}</td>\
+                                    <td>${item.active_to}</td>\
                                     <td>\
-                                        <button type="button" data-id="'+item.id+'" class="edit_quiz btn btn-success" ><i class="nav-icon i-Pen-2 font-weight-bold"></i></button>\
-                                        <button type="button" value="'+item.id+'" class="delete_quiz btn btn-danger">Delete</button>\
+                                        <button type="button" data-id="${item.id}" class="edit_quiz btn btn-success" ><i class="nav-icon i-Pen-2 font-weight-bold"></i></button>\
+                                        <button type="button" value="${item.id}" class="delete_quiz btn btn-danger">Delete</button>\
+                                        <a href="${siteUrl + '/view-contest/'+item.id}" class="btn btn-info">View in details</a>\
                                     </td>\
-                                </tr>'
+                                </tr>`
                             );
                         });
                     }

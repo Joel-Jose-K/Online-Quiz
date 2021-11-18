@@ -10,7 +10,6 @@
     
     <a href="{{ route('quiz.view') }}" class="btn btn-primary">Add Quiz</a>
 
-    <a href="{{ route('mcq.view') }}" class="btn btn-primary">Create MCQ</a>
 @endsection
 
 @push('scripts')

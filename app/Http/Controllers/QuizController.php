@@ -107,7 +107,7 @@ class QuizController extends Controller
 
             return response()->json([
                 'status'  => 200,
-                'message' => "New Quiz updated successfully.",
+                'message' => "Quiz updated successfully.",
             ]);
         }
     }
@@ -119,7 +119,7 @@ class QuizController extends Controller
 
         return response()->json([
             'status'  => 200,
-            'message' => "New Quiz deleted successfully.",
+            'message' => "Quiz deleted successfully.",
         ]);
     }
 }

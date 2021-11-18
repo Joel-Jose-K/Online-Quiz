@@ -146,7 +146,7 @@
                         <span class="glyphicon glyphicon-trash delete-option">delete</span>
                     </div>
                     <div class="col-xs-2">
-                        <input name="question[${questionindex}][option][${newOptionIndex}][is_answer]" type="checkbox">
+                        <input name="question[${questionindex}][option][${newOptionIndex}][is_answer]" class="validate_check" type="checkbox">
                     </div>
                     </div>
                     

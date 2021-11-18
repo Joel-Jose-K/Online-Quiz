@@ -20,6 +20,13 @@ class McqController extends Controller
         return view('quiz.mcq', ['quizs' => $quiz]);
     }
 
+    public function getContestView($id)
+    {
+        $quiz = Quiz::find($id);
+        
+        return view('quiz.list-mcq-questions', ['quiz' => $quiz]);
+    }
+
     public function submitMcq(Request $request)
     {
         $validated = Validator::make($request->all(),
@@ -31,7 +38,7 @@ class McqController extends Controller
             ],
             [
                 'question.*.question.required'             => 'Question is required.',
-                'question.*.question.min'                  => 'Question requires minimum of 4 characters.',
+                'question.*.question.min'                  => 'Please check if all questions have a minimum of 4 characters.',
                 'question.*.type.required'                 => 'Question type is required.',
                 'question.*.option.*.option_text.required' => 'Please add an option.',
                 'question.*.type.*.is_answer.required'     => 'Please select the correct option.',
