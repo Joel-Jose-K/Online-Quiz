@@ -61,6 +61,15 @@
                 <button type="submit" value="submit" class="btn btn-primary" id="add" form="createMcq">Submit</button>
             </div>
     </div>
+    {{-- <div>
+        <h3>Fruits</h3>
+        <label>
+          <input type="checkbox" class="radio" value="1" name="fooby[1][]" />Kiwi</label>
+        <label>
+          <input type="checkbox" class="radio" value="1" name="fooby[1][]" />Jackfruit</label>
+        <label>
+          <input type="checkbox" class="radio" value="1" name="fooby[1][]" />Mango</label>
+    </div> --}}
 @endsection
 
 @push('scripts')

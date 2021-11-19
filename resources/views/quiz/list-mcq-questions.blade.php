@@ -10,7 +10,6 @@
         <div class="row">
             <div class="col-md-6">Quiz Type</div>
             <div class="col-md-6">{{ $quiz->quiz_type_id }}</div>
-            
         </div>
         <br>
         <div class="row">
@@ -54,32 +53,22 @@
             <div class="col-md-6"> 2nd column</div>
         </div> --}}
         <br>
+
+    {{-- add question and selected answers --}}
+    <div class="separator-breadcrumb border-top"></div>
+
+    <div class="row">
+        @foreach ($quiz->quizQuestions as $question)
+            @php
+                $q = $question->question;
+            @endphp
     
-
-
-    {{-- <table class="table">
-        <thead></thead>
-        <tbody>
-            <tr>
-                <th scope="row">Quiz Type</th>
-                <td>Chemistry101</td>   
-            </tr>
-            <tr>
-                <th scope="row">Quiz Title</th>
-                <td>Covalent Bonds</td>   
-            </tr>
-            <tr>
-                <th scope="row">Quiz Description</th>
-                <td>Covalent Bonds</td>   
-            </tr>
-            <tr>
-                <th scope="row">Active from</th>
-                <td>2021-11-10 16:51:00</td>   
-            </tr>
-            <tr>
-                <th scope="row">Active to</th>
-                <td>2021-11-11 16:52:00</td>   
-            </tr>
-        </tbody>
-    </table> --}}
+            <div class="col-md-12">{{ $q->question }}</div>
+            @foreach ($q->questionansweroption as $option)
+                <div class="col-md-6">{{ $option->answer_option }}</div>
+            @endforeach
+        @endforeach
+        {{-- <div class="col-md-12">test</div>
+        <div class="col-md-6"></div> --}}
+    </div>
 @endsection

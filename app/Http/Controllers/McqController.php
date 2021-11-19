@@ -7,7 +7,6 @@ use App\Models\Question;
 use App\Models\QuizType;
 use App\Models\QuizQuestion;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use App\Models\QuestionAnswerOption;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\CssSelector\Node\ElementNode;
@@ -22,7 +21,11 @@ class McqController extends Controller
 
     public function getContestView($id)
     {
-        $quiz = Quiz::find($id);
+        $quiz = Quiz::with([
+            'quizQuestions.question.questionansweroption',
+            'quizQuestions.questionansweroption'
+
+            ])->find($id);
         
         return view('quiz.list-mcq-questions', ['quiz' => $quiz]);
     }
