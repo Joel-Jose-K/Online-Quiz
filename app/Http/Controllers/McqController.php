@@ -44,7 +44,7 @@ class McqController extends Controller
                 'question.*.question.min'                  => 'Please check if all questions have a minimum of 4 characters.',
                 'question.*.type.required'                 => 'Question type is required.',
                 'question.*.option.*.option_text.required' => 'Please add an option.',
-                'question.*.type.*.is_answer.required'     => 'Please select the correct option.',
+                'question.*.type.*.is_answer.required'     => 'Please select the correct answer from options.',
             ]
         );
         // dd($request->all());

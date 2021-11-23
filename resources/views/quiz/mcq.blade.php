@@ -207,7 +207,7 @@
                                     <span class="glyphicon glyphicon-plus"></span>
                                 </div>
                                 <div class="col-xs-2">
-                                    <input class="validate_check" name="question[${questionindex}][option][${newOptionIndex}][is_answer]" type="checkbox">
+                                    <input class="validate_check" name="question[${newIndex}][option][${newOptionIndex}][is_answer]" type="checkbox">
                                 </div>
                             </div>
                         </div>

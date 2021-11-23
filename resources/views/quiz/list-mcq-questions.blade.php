@@ -4,6 +4,10 @@
 
 @section('content')
     <h1>MCQ Details</h1>
+    <div class="pull-right">
+        <a href="{{ route('quiz.view') }}" class="btn btn-info pull-right">Back</a>
+    </div>
+
     <div class="separator-breadcrumb border-top"></div>
 
     
@@ -48,10 +52,6 @@
             <div class="col-md-6">{{ $quiz->is_evaluate }}</div>
         </div>
         <br>
-        {{-- <div class="row">
-            <div class="col-md-6">1st column</div>
-            <div class="col-md-6"> 2nd column</div>
-        </div> --}}
         <br>
 
     {{-- add question and selected answers --}}
