@@ -57,18 +57,42 @@
     {{-- add question and selected answers --}}
     <div class="separator-breadcrumb border-top"></div>
 
-    <div class="row">
-        @foreach ($quiz->quizQuestions as $question)
+    <div>
+        @php
+            $i=1;
+        @endphp
+
+         @foreach ($quiz->quizQuestions as $question)
             @php
-                $q = $question->question;
+                $q        = $question->question;
+                // dd($question->questionansweroption);
+                $answerOptionId = $question->questionansweroption->question_answer_option_id;
             @endphp
+
     
-            <div class="col-md-12">{{ $q->question }}</div>
-            @foreach ($q->questionansweroption as $option)
-                <div class="col-md-6">{{ $option->answer_option }}</div>
-            @endforeach
+               
+            <div><h4>{{ $i++ }}) {{$q->question }}</h4></div>
+                
+            
+            <div class="row">
+                @foreach ($q->questionansweroption as $option)
+                @php
+                    if ($answerOptionId == $option->id){
+                        $checked = 'checked';
+                    }
+                    else {
+                        $checked = '';
+                    }
+                @endphp
+                
+                <input name="{{ $question->id }}" type="radio" {{ $checked }} value="{{ $option->id }}">
+                <div class="col-md-2 col-xs-4">{{ $option->answer_option }}</div>
+
+                @endforeach
+            </div>
+            <hr>
+            
+
         @endforeach
-        {{-- <div class="col-md-12">test</div>
-        <div class="col-md-6"></div> --}}
-    </div>
+    </div> 
 @endsection

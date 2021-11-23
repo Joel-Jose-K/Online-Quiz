@@ -238,7 +238,7 @@
                                     <td>\
                                         <button type="button" data-id="${item.id}" class="edit_quiz btn btn-success" ><i class="nav-icon i-Pen-2 font-weight-bold"></i></button>\
                                         <button type="button" value="${item.id}" class="delete_quiz btn btn-danger">Delete</button>\
-                                        <a href="${siteUrl + '/view-contest/'+item.id}" class="btn btn-info">View in details</a>\
+                                        <a href="${siteUrl + '/view-contest/'+item.id}" class="btn btn-info">View in detail</a>\
                                     </td>\
                                 </tr>`
                             );
