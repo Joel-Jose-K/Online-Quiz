@@ -63,10 +63,11 @@
         @endphp
 
          @foreach ($quiz->quizQuestions as $question)
+         @dd($question);
             @php
-                $q        = $question->question;
+                $q              = $question->question;
                 // dd($question->questionansweroption);
-                $answerOptionId = $question->questionansweroption->question_answer_option_id;
+                $answerOptionId = $question->question_answer_option_id;
             @endphp
 
     
