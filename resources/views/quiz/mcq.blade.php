@@ -47,7 +47,7 @@
                                     <span class="glyphicon glyphicon-plus"></span>
                                 </div>
                                 <div class="col-xs-2">
-                                    <input class="validate_check" name="question[1][option][1][is_answer]" type="checkbox">
+                                    <input class="validate_check" name="question[1][answer_index]" value="1" type="radio">
                                 </div>
                             </div>
                         </div>
@@ -146,7 +146,7 @@
                         <span class="glyphicon glyphicon-trash delete-option">delete</span>
                     </div>
                     <div class="col-xs-2">
-                        <input name="question[${questionindex}][option][${newOptionIndex}][is_answer]" class="validate_check" type="checkbox">
+                        <input name="question[${questionindex}][answer_index]" value="${newOptionIndex}" class="validate_check" type="radio">
                     </div>
                     </div>
                     
@@ -168,7 +168,6 @@
                 let newIndex = ++QuestionIndex;
                 let newOptionIndex = ++optionIndex;
                 let questionindex = $(this).data('question-index');
-                // let answerIndex = ++;
 
                 let html=`
 
@@ -198,7 +197,7 @@
                                     <span class="glyphicon glyphicon-plus"></span>
                                 </div>
                                 <div class="col-xs-2">
-                                    <input class="validate_check" name="question[${newIndex}][option][${newOptionIndex}][is_answer]" type="checkbox">
+                                    <input class="validate_check" name="question[${newIndex}][answer_index]" type="radio">
                                 </div>
                             </div>
                         </div>

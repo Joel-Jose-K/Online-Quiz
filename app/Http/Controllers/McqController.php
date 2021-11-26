@@ -32,22 +32,23 @@ class McqController extends Controller
 
     public function submitMcq(Request $request)
     {
+        // dd($request->all());
         $validated = Validator::make($request->all(),
             [
                 'question.*.question'             => ['required', 'max:30', 'min:4'],
                 'question.*.type'                 => ['required','exists:quizzes,id'],
                 'question.*.option.*.option_text' => ['required'],
-                'question.*.type.*.is_answer'     => ['required'],
+                'question.*.answer_index'     => ['required'],
             ],
             [
                 'question.*.question.required'             => 'Question is required.',
                 'question.*.question.min'                  => 'Please check if all questions have a minimum of 4 characters.',
                 'question.*.type.required'                 => 'Question type is required.',
                 'question.*.option.*.option_text.required' => 'Please add an option.',
-                'question.*.type.*.is_answer.required'     => 'Please select the correct answer from options.',
+                'question.*.answer_index.required'         => 'Please select the correct answer from options.',
             ]
         );
-        // dd($request->all());
+        
 
         if($validated->fails())
         {
@@ -69,14 +70,14 @@ class McqController extends Controller
                 $mcq_quiz_question_data->question_id = $mcq_question_data->id;
                 $mcq_quiz_question_data->answer_score = 2;
 
-                foreach($q['option'] as $qa){
+                foreach($q['option'] as $index => $qa){
 
                     $mcq_question_answer_data              = new QuestionAnswerOption();
                     $mcq_question_answer_data->question_id = $mcq_question_data->id;
                     $mcq_question_answer_data->answer_option = $qa['option_text'];
                     $mcq_question_answer_data->save();
 
-                    if(isset($qa['is_answer']) && $qa['is_answer'] == 'on')
+                    if($index == $q['answer_index'])
                     {
                         $mcq_quiz_question_data->question_answer_option_id = $mcq_question_answer_data->id;
                     }
@@ -84,11 +85,12 @@ class McqController extends Controller
                 
                 $mcq_quiz_question_data->save();
 
-                return response()->json([
-                    'status'  => 200,
-                    'message' => "New Quiz added successfully.",
-                ]);
             }
+
+            return response()->json([
+                'status'  => 200,
+                'message' => "New Quiz added successfully.",
+            ]);
         }
 
 

@@ -63,7 +63,7 @@
         @endphp
 
          @foreach ($quiz->quizQuestions as $question)
-         @dd($question);
+         {{-- @dd($question); --}}
             @php
                 $q              = $question->question;
                 // dd($question->questionansweroption);
@@ -77,16 +77,9 @@
             
             <div class="row">
                 @foreach ($q->questionansweroption as $option)
-                @php
-                    if ($answerOptionId == $option->id){
-                        $checked = 'checked';
-                    }
-                    else {
-                        $checked = '';
-                    }
-                @endphp
                 
-                <input name="{{ $question->id }}" type="radio" {{ $checked }} value="{{ $option->id }}">
+                
+                <input name="{{ $question->id }}" type="radio" {{ $answerOptionId == $option->id ? 'checked':'' }} value="{{ $option->id }}">
                 <div class="col-md-2 col-xs-4">{{ $option->answer_option }}</div>
 
                 @endforeach
