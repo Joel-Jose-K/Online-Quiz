@@ -4,6 +4,9 @@
 
 @section('content')
     <h1>Add MCQ</h1>
+
+    {{-- <a href="{{ route('contest.view') }}" class="btn btn-info">Return back</a> --}}
+
     <div class="separator-breadcrumb border-top"></div>
 
     <div class="card body">

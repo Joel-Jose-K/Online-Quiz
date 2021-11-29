@@ -6,6 +6,8 @@
     <h1>MCQ Details</h1>
     <div class="pull-right">
         <a href="{{ route('quiz.view') }}" class="btn btn-info pull-right">Back</a>
+
+        <a href="{{ route('mcq.view') }}" class="btn btn-primary">Create new MCQ</a>
     </div>
 
     <div class="separator-breadcrumb border-top"></div>
@@ -62,7 +64,7 @@
             $i=1;
         @endphp
 
-         @foreach ($quiz->quizQuestions as $question)
+        @foreach ($quiz->quizQuestions as $question)
          {{-- @dd($question); --}}
             @php
                 $q              = $question->question;
@@ -71,15 +73,14 @@
             @endphp
 
     
-               
-            <div><h4>{{ $i++ }}) {{$q->question }}</h4></div>
+            <div><h4>{{ $i++ }}) {{ $q->question }}</h4></div>
                 
             
             <div class="row">
                 @foreach ($q->questionansweroption as $option)
                 
                 
-                <input name="{{ $question->id }}" type="radio" {{ $answerOptionId == $option->id ? 'checked':'' }} value="{{ $option->id }}">
+                <input id="{{ $question->id }}" class="correct_option" name="{{ $question->id }}" type="radio" {{ $answerOptionId == $option->id ? 'checked':'' }} value="{{ $option->id }}">
                 <div class="col-md-2 col-xs-4">{{ $option->answer_option }}</div>
 
                 @endforeach
@@ -88,5 +89,25 @@
             
 
         @endforeach
+        <button class="btn btn-success" id="update_result">Update the result</button>
     </div> 
 @endsection
+
+@push('scripts')
+    {{-- <script type="text/javascript">
+        $(document).on('click', '.correct_option',function (e) {
+            e.preventDefault();
+            // alert(this.id);
+            $.ajax({
+                type: "POST",
+                url: "/update-answer",
+                data: this.id,
+                dataType: "json",
+                headers:{"X-HTTP-Method-Override": "PUT"},
+                success: function (response) {
+                    
+                }
+            });
+        });
+    </script> --}}
+@endpush

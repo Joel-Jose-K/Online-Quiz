@@ -65,15 +65,15 @@ class McqController extends Controller
                 $mcq_question_data->question = $q['question'];
                 $mcq_question_data->save();           
 
-                $mcq_quiz_question_data   = new QuizQuestion();
-                $mcq_quiz_question_data->quiz_id = $q['type'];
-                $mcq_quiz_question_data->question_id = $mcq_question_data->id;
+                $mcq_quiz_question_data               = new QuizQuestion();
+                $mcq_quiz_question_data->quiz_id      = $q['type'];
+                $mcq_quiz_question_data->question_id  = $mcq_question_data->id;
                 $mcq_quiz_question_data->answer_score = 2;
 
                 foreach($q['option'] as $index => $qa){
 
-                    $mcq_question_answer_data              = new QuestionAnswerOption();
-                    $mcq_question_answer_data->question_id = $mcq_question_data->id;
+                    $mcq_question_answer_data                = new QuestionAnswerOption();
+                    $mcq_question_answer_data->question_id   = $mcq_question_data->id;
                     $mcq_question_answer_data->answer_option = $qa['option_text'];
                     $mcq_question_answer_data->save();
 
@@ -92,7 +92,11 @@ class McqController extends Controller
                 'message' => "New Quiz added successfully.",
             ]);
         }
+    }
 
-
+    public function updateAnswer()
+    {
+        // $update_answer = ;
+        // $mcq_question_answer_data = new QuestionAnswerOption();
     }
 }
