@@ -38,7 +38,7 @@ class McqController extends Controller
                 'question.*.question'             => ['required', 'max:30', 'min:4'],
                 'question.*.type'                 => ['required','exists:quizzes,id'],
                 'question.*.option.*.option_text' => ['required'],
-                'question.*.answer_index'     => ['required'],
+                'question.*.answer_index'         => ['required'],
             ],
             [
                 'question.*.question.required'             => 'Question is required.',
@@ -94,9 +94,41 @@ class McqController extends Controller
         }
     }
 
-    public function updateAnswer()
+    public function updateAnswer(Request $request)
     {
-        // $update_answer = ;
-        // $mcq_question_answer_data = new QuestionAnswerOption();
+        // dd($request->all());
+
+        $validated = Validator::make($request->all(),
+            [
+                'question.*.question_id'      => ['required', 'exists:quiz_questions,question_id'],
+                'question.*.answer_option_id' => ['required', 'exists:question_answer_options,id'],
+            ],
+            [
+                'question.*.question_id.required'      => 'Please check if question_id is passed',
+                'question.*.answer_option_id.required' => 'Please check if answer_option_id is passed',
+            ]
+        );
+
+        if($validated->fails())
+        {
+            return response()->json([
+                'status' => 400,
+                'errors' => $validated->messages(),
+            ]);
+        }
+        else
+        {
+            foreach($request->question as $question_answer_option_details)
+            {
+                $quizQuestion = QuizQuestion::where('question_id', $question_answer_option_details['question_id'])->update([
+                    'question_answer_option_id' => $question_answer_option_details['answer_option_id']]);
+            }
+
+            return response()->json([
+                'status'  => 200,
+                'message' => "Answer option was updated successfully.",
+            ]);
+        }        
+
     }
 }

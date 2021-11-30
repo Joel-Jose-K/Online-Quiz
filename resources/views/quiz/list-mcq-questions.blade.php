@@ -58,56 +58,109 @@
 
     {{-- add question and selected answers --}}
     <div class="separator-breadcrumb border-top"></div>
-
-    <div>
-        @php
-            $i=1;
-        @endphp
-
-        @foreach ($quiz->quizQuestions as $question)
-         {{-- @dd($question); --}}
+    <form action="{{ route('update.answer') }}" method="POST" id="update-option-form">
+        @csrf
+        <div id="update_success_message"></div>
+        <div>
             @php
-                $q              = $question->question;
-                // dd($question->questionansweroption);
-                $answerOptionId = $question->question_answer_option_id;
+                $i = 1;
+                $quesionIndex = 1;
             @endphp
-
     
-            <div><h4>{{ $i++ }}) {{ $q->question }}</h4></div>
+            @foreach ($quiz->quizQuestions as $question)
+    
+                @php
+                    $q                = $question->question;
+                    $answerOptionId   = $question->question_answer_option_id;
+                    $newQuestionIndex = $quesionIndex++;
+                @endphp
+                <input type="hidden" name="question[{{ $newQuestionIndex }}][question_id]" value="{{ $q->id }}">
                 
-            
-            <div class="row">
-                @foreach ($q->questionansweroption as $option)
+    
+                <div><h4>{{ $i++ }}) {{ $q->question }}</h4></div>
+                    
                 
+                <div class="row">
+                    @foreach ($q->questionansweroption as $option)
+                    
+                    
+                    <input name="question[{{ $newQuestionIndex }}][answer_option_id]" type="radio" {{ $answerOptionId == $option->id ? 'checked':'' }} value="{{ $option->id }}">
+                    <div class="col-md-2 col-xs-4">{{ $option->answer_option }}</div>
+    
+                    @endforeach
+                </div>
+                <hr>
                 
-                <input id="{{ $question->id }}" class="correct_option" name="{{ $question->id }}" type="radio" {{ $answerOptionId == $option->id ? 'checked':'' }} value="{{ $option->id }}">
-                <div class="col-md-2 col-xs-4">{{ $option->answer_option }}</div>
-
-                @endforeach
-            </div>
-            <hr>
-            
-
-        @endforeach
-        <button class="btn btn-success" id="update_result">Update the result</button>
-    </div> 
+    
+            @endforeach
+            <button type="submit" class="btn btn-success" id="update_result">Update the result</button>
+        </div> 
+    </form>
+    
 @endsection
 
 @push('scripts')
-    {{-- <script type="text/javascript">
-        $(document).on('click', '.correct_option',function (e) {
-            e.preventDefault();
-            // alert(this.id);
-            $.ajax({
-                type: "POST",
-                url: "/update-answer",
-                data: this.id,
-                dataType: "json",
-                headers:{"X-HTTP-Method-Override": "PUT"},
-                success: function (response) {
-                    
+    <script src="{{ asset('assets/cdn/jquery.validate.min.js') }}" ></script>
+    <script src="{{ asset('assets/cdn/additional-methods.min.js') }}" ></script>
+
+    <script>
+        $(document).ready(function () {
+            
+            let updateForm = $('#update-option-form');
+
+
+            $(document).on('click', '#update_result', function (e) {
+                e.preventDefault();
+
+                updateForm.submit();
+
+            });
+
+            updateForm.validate({
+
+                normalizer: function(value) {
+                    return $.trim(value);
+                }
+
+                , submitHandler: function(form, event) {
+                    event.preventDefault();
+        
+                    var formData = new FormData($(form)[0]);
+
+                    $(form).find('.js-error').html('');
+
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+
+
+                    $.ajax({
+                        url: $(form).attr('action')
+                        , data: formData
+                        , contentType: false
+                        , processData: false
+                        , dataType : "json"
+                        , type: "POST"
+                        , headers:{"X-HTTP-Method-Override": "PUT"}
+                        , success: function (response) {
+
+                            if(response.status == 400) {
+                                $('#update_success_message').html("");
+                                $('#update_success_message').addClass("alert alert-danger");
+                                $.each(response.errors, function (key, err_values) { 
+                                     $('#update_success_message').append('<li>'+err_values+'</li>');
+                                });
+                            } else {
+                                $('#update_success_message').addClass("alert alert-success");
+                                $('#update_success_message').text(response.message);
+                            }
+                        }
+                    });
                 }
             });
+
         });
-    </script> --}}
+    </script>
 @endpush

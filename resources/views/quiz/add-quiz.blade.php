@@ -139,7 +139,7 @@
                 </div>
                 <div class="modal-body">
                     <input type="hidden" id="delete_quiz_id">
-                    <h5>Are you sure you want to delete this record?</h5>
+                    <h5>Are you sure you want to delete the whole Quiz?</h5>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -210,9 +210,9 @@
     <script>
         $(document).ready(function () {
 
-            let siteUrl = $('#site-url').val();
-            let modal = $('#editQuizModal');
-            let editForm=modal.find('form');
+            let siteUrl  = $('#site-url').val();
+            let modal    = $('#editQuizModal');
+            let editForm = modal.find('form'); 
 
             fetchquizdata();
 

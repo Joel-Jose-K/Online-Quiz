@@ -48,7 +48,9 @@ Route::group(['middleware' => ['auth']], function(){
     Route::put('update-quiz/{id}', [QuizController::class, 'updateQuiz'])->name('quiz.update');
     Route::delete('delete-quiz/{id}', [QuizController::class, 'destroy'])->name('quiz.delete');
 
-    Route::get('view-contest/{id}', [McqController::class, 'getContestView'])->name('contest.view'); 
+    Route::get('view-contest/{id}', [McqController::class, 'getContestView'])->name('contest.view');
+
+    Route::put('update-answer', [McqController::class, 'updateAnswer'])->name('update.answer'); 
 
     Route::get('view-mcq', [McqController::class, 'getMcqForm'])->name('mcq.view');
     Route::post('mcq-submit', [McqController::class, 'submitMcq'])->name('mcq.submit');
