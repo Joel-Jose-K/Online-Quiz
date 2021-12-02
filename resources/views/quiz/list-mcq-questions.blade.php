@@ -7,7 +7,7 @@
     <div class="pull-right">
         <a href="{{ route('quiz.view') }}" class="btn btn-info pull-right">Back</a>
 
-        <a href="{{ route('mcq.view') }}" class="btn btn-primary">Create new MCQ</a>
+        {{-- <a href="{{ route('mcq.view') }}" class="btn btn-primary">Create new MCQ</a> --}}
     </div>
 
     <div class="separator-breadcrumb border-top"></div>

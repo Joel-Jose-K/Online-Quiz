@@ -158,8 +158,7 @@
                     <div class="card-header">
                         <h4>Quiz Data
                             <a href="#" data-toggle="modal" data-target="#addQuizModal" class="btn btn-primary float-end">Add Quiz</a>
-                            {{-- <a href="{{ route('mcq.view') }}" class="btn btn-primary">Create MCQ</a> --}}
-                            {{-- <a href="{{ route('contest.view') }}" class="btn btn-primary">List View Details</a> --}}
+                            <a href="{{ route('mcq.view') }}" class="btn btn-primary">Create new MCQ</a>
                         </h4>
                     </div>
                         <div class="card-body">
